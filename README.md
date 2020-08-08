@@ -27,8 +27,8 @@ Download audio files to `www/songs` and add a reference to them in `www/script.j
 Each song follow the following format:
 ```json
 {
-    title: 'SONG TITLE',
-    artist: 'SONG ARTIST',
-    src: 'AUDIO FILE.mp3'
+    "title": "SONG TITLE",
+    "artist": "SONG ARTIST",
+    "src": "AUDIO FILE.mp3"
 }
 ```
