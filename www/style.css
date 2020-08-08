@@ -40,3 +40,8 @@ body {
 .playing .index {
     color: #00c4ff;
 }
+
+#current {
+    margin-top: 5px;
+    margin-bottom: 3px;
+}

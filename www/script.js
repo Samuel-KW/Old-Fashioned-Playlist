@@ -6,7 +6,8 @@ class Player {
             submit: [13],
             prev: [38, 87],
             next: [40, 83],
-            shuffle: [192]
+            shuffle: [192],
+            pause: [32]
         };
         
         this.songs = songs;
@@ -48,6 +49,11 @@ class Player {
 
                 if (this.songs[index]) this.select(index);
                 else this.select(0);
+            } else if (this.keys.pause.includes(key)) {
+                
+                if (this.audio.paused) this.resume();
+                else this.pause();
+
             } else if (this.keys.shuffle.includes(key)) this.shuffle();
         });
     }
@@ -63,6 +69,8 @@ class Player {
 
         this.audio.src = 'songs/' + song.src;
         this.playing = index;
+
+        document.getElementById('current').textContent = `${song.title} - ${song.artist}`;
 
         this.resume();
     }
