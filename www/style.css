@@ -1,0 +1,42 @@
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #171717;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #4d4d4d;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #7A7A7A;
+}
+
+body {
+    font-family: Consolas, Lucida Console, Courier New, monospace;
+    background-color: #0c0c0c;
+    width: 100%; height: 100%;
+    overflow: hidden scroll;
+    color: #CCCCCC;
+    padding: 0;
+    margin: 0;
+}
+
+.content .section:before {
+    content: '\00a0\00a0';
+}
+
+.selected:before {
+    content: '>\00a0' !important;
+}
+
+.artist:before {
+    content: '\00a0-\00a0'
+}
+
+.playing .index {
+    color: #00c4ff;
+}

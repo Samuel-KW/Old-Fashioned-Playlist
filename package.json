@@ -1,0 +1,30 @@
+{
+  "name": "old-fashioned-playlist",
+  "version": "1.0.0",
+  "description": "Old style playlist program",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Samuel-UC/Old-Fashioned-Playlist.git"
+  },
+  "keywords": [
+    "Electron",
+    "quick",
+    "start",
+    "tutorial",
+    "demo"
+  ],
+  "author": "GitHub",
+  "license": "CC0-1.0",
+  "devDependencies": {
+    "electron": "^9.0.4"
+  },
+  "bugs": {
+    "url": "https://github.com/Samuel-UC/Old-Fashioned-Playlist/issues"
+  },
+  "homepage": "https://github.com/Samuel-UC/Old-Fashioned-Playlist#readme",
+  "dependencies": {}
+}
