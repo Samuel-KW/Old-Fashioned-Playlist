@@ -11,13 +11,10 @@
     "url": "git+https://github.com/Samuel-UC/Old-Fashioned-Playlist.git"
   },
   "keywords": [
-    "Electron",
-    "quick",
-    "start",
-    "tutorial",
-    "demo"
+    "audio",
+    "playlist"
   ],
-  "author": "GitHub",
+  "author": "Samuel Walls",
   "license": "CC0-1.0",
   "devDependencies": {
     "electron": "^9.0.4"
