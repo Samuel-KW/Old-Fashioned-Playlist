@@ -50,7 +50,7 @@ class Player {
                 if (this.songs[index]) this.select(index);
                 else this.select(0);
             } else if (this.keys.pause.includes(key)) {
-                
+
                 if (this.audio.paused) this.resume();
                 else this.pause();
 
@@ -174,4 +174,5 @@ let Playlist = new Player([
     { title: 'so long', artist: 'Powfu', src: 'Powfu - so long.mp3' },
     { title: 'Midnight Adventures', artist: 'AnimeVibe', src: 'Midnight Adventures.mp3' },
     { title: 'nice guy', artist: 'D$r', src: 'D$r - nice guy.mp3' },
+    { title: 'Hope you die', artist: 'Yng Hstlr', src: 'Yng Hstlr - Hope you die.mp3' },
 ]);
