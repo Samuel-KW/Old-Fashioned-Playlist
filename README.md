@@ -24,7 +24,7 @@ Note: If you're using Linux Bash for Windows, [see this guide](https://www.howto
 
 Download audio files to `songs` and add a reference to them in `songs/data.json`.
 
-Each song follow the following format:
+Each song must follow the following format:
 ```json
 {
     "title": "SONG TITLE",
