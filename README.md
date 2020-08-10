@@ -22,13 +22,13 @@ Note: If you're using Linux Bash for Windows, [see this guide](https://www.howto
 
 ## Adding Songs
 
-Download audio files to `www/songs` and add a reference to them in `www/script.js`.
+Download audio files to `songs` and add a reference to them in `songs/data.json`.
 
-Each song follow the following format:
+Each song must follow the following format:
 ```json
 {
-    title: 'SONG TITLE',
-    artist: 'SONG ARTIST',
-    src: 'AUDIO FILE.mp3'
+    "title": "SONG TITLE",
+    "artist": "SONG ARTIST",
+    "src": "AUDIO FILE.mp3"
 }
 ```
