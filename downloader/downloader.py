@@ -32,7 +32,7 @@ def get_audio(url, directory):
         filepath = os.path.join(directory, filename + '.m4a')
         audio_output = audio_stream.download(filepath=filepath)
 
-        songs.append({ 'title': audio.title, 'artist': audio.author, 'src': filename })
+        songs.append({ 'title': audio.title, 'artist': audio.author, 'src': filename + '.m4a' })
 
         return filepath, filename
 
