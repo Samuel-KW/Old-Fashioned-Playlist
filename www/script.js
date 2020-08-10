@@ -16,10 +16,12 @@ class Player {
         this.selected = 0;
 
         this.parent = document.getElementById('song-container');
-        this.audio = new Audio();
         this.state = 'loading';
 
-        this.reload();
+        this.audio = new Audio();
+        this.audio.volume = 0.15;
+
+        this.shuffle();
         this.listeners();
     }
 
@@ -67,7 +69,7 @@ class Player {
 
         this.parent.children[this.playing].classList.add('playing');
 
-        this.audio.src = 'songs/' + song.src;
+        this.audio.src = '../songs/' + song.src;
         this.playing = index;
 
         document.getElementById('current').textContent = `${song.title} - ${song.artist}`;
@@ -170,9 +172,8 @@ class Player {
     }
 }
 
-let Playlist = new Player([
-    { title: 'so long', artist: 'Powfu', src: 'Powfu - so long.mp3' },
-    { title: 'Midnight Adventures', artist: 'AnimeVibe', src: 'Midnight Adventures.mp3' },
-    { title: 'nice guy', artist: 'D$r', src: 'D$r - nice guy.mp3' },
-    { title: 'Hope you die', artist: 'Yng Hstlr', src: 'Yng Hstlr - Hope you die.mp3' },
-]);
+let Playlist;
+
+fetch('../songs/data.json')
+    .then(e => e.json())
+    .then(e => Playlist = new Player(e));
