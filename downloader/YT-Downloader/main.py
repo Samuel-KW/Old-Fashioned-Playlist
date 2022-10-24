@@ -1,19 +1,22 @@
 
 
 # Variables
+api_key = ''
+
 file_data = 'data.csv'
-file_input = 'urls.txt'
 
 file_output = 'songs/'
 new_songs_dir = 'new_songs/'
 
-
 playlists_dir = 'Takeout/YouTube and YouTube Music/playlists'
 file_type = 'm4a'
 
+failed_ids = []
+
+
 import os, re
 
-import pafy, youtube_dl
+import pafy
 from colorama import Fore, init
 from shutil import copyfile
 
@@ -24,6 +27,9 @@ init(convert = True) if os.name == 'nt' else init()
 
 print(Fore.MAGENTA + '\nYouTube Downloader')
 print(Fore.WHITE + 'https://github.com/Samuel-UC\n')
+
+# Set custom API key
+pafy.set_api_key(api_key)
 
 # Get downloaded song information
 def get_song_data():
@@ -37,16 +43,20 @@ def get_song_data():
 
     return songs
 
+print()
+
 # Get audio files from YouTube video ID and save to directory        
 def get_audio(url, directory, save_new=False):
 
     try:
-        audio = pafy.new('https://www.youtube.com/watch?v=' + url)
+        audio = pafy.new(url, basic=True, gdata=False)
         
-        print(Fore.CYAN + '\nDownloading' + Fore.YELLOW, audio.title + Fore.WHITE)
+        print(Fore.CYAN + 'Downloading' + Fore.YELLOW, audio.title + Fore.WHITE)
         
         # Get best audio quality
         audio_stream = audio.getbestaudio(preftype=file_type, ftypestrict=True)
+
+        print()
 
         # Create filename
         filename = url + '.' + file_type
@@ -65,7 +75,7 @@ def get_audio(url, directory, save_new=False):
         else:
 
             filepath = os.path.join(directory, filename)
-            audio_output = audio_stream.download(filepath=filepath)
+            audio_stream.download(filepath=filepath)
 
             try:
                 audio = MP4(directory + filename)
@@ -82,7 +92,19 @@ def get_audio(url, directory, save_new=False):
                 audio.save()
                 
                 if save_new:
-                    copyfile(directory + filename, new_songs_dir)
+                    copyfile(directory + filename, new_songs_dir + filename)
+                    audio = MP4(new_songs_dir + filename)
+
+                    if not audio.tags:
+                        audio.add_tags()
+                    
+                    audio.tags['\xa9nam'] = title
+                    audio.tags['\xa9ART'] = artist
+
+                    audio.tags['title'] = title
+                    audio.tags['artist'] = artist
+
+                    audio.save()
 
             except Exception as e:
 
@@ -94,7 +116,8 @@ def get_audio(url, directory, save_new=False):
         return filepath, filename
 
     except Exception as e:
-        print(Fore.RED + str(e))
+        #print(Fore.RED + str(e))
+        failed_ids.append(url)
 
 # Determine if song is already downloaded
 def has_song(video_id, title='', artist='', strict=True):
@@ -130,16 +153,16 @@ def start(urls, directory, save_new=False):
 
         if not is_downloaded:
             get_audio(video_id, directory, save_new)
-            save_songs()
         else:
             print(Fore.RED + 'Song already downloaded:', Fore.YELLOW + is_downloaded[1][1])
         
         if os.name == 'nt':
             os.system('title Progress: ' + str(index) + ' / ' + str(len(urls)))
 
+    save_songs()
     
 
-    print(Fore.CYAN + '\nFinished downloading' + Fore.YELLOW, len(urls), Fore.CYAN + 'audio files.')
+    print(Fore.CYAN + '\nFinished downloading' + Fore.YELLOW, len(urls), Fore.CYAN + 'audio files.\n')
 
 # Parse data from Google takeout playlist data
 def parse_from_takeout(directory):
@@ -195,15 +218,9 @@ print(Fore.CYAN + 'Parsed CSV data from' + Fore.YELLOW, file_data)
 # List of song IDs to download
 urls = []
 
-# Download from urls.txt
-if False:
-    urls = open(file_input).read().splitlines()
-    print(Fore.CYAN + 'Found file with' + Fore.YELLOW, len(urls), Fore.CYAN + 'links.\n')
-
 # Download from takeout
-else:
-    urls = parse_from_takeout(playlists_dir)
-    print(Fore.CYAN + 'Parsed playlist from' + Fore.YELLOW, playlists_dir)
+urls = parse_from_takeout(playlists_dir)
+print(Fore.CYAN + 'Parsed playlist from' + Fore.YELLOW, playlists_dir)
 
 
 save_new = False
@@ -215,3 +232,7 @@ if input('(y/n): ') == 'y':
     delete_folder(new_songs_dir)
 
 start(urls, file_output, save_new)
+
+if len(failed_ids) > 0:
+    print(Fore.YELLOW + 'Failed to fetch ' + str(len(failed_ids)) + ' videos.')
+    print(Fore.WHITE + '\n'.join(failed_ids))

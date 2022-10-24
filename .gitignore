@@ -1,3 +1,11 @@
+# Ignore takeout
+downloader/YT-Downloader/Takeout
+
+# Ignore songs
+*.mp3
+*.m4a
+*.wav
+
 # Logs
 logs
 *.log
@@ -5,11 +13,6 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
-
-# Ignore songs
-*.mp3
-*.m4a
-*.wav
 
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
