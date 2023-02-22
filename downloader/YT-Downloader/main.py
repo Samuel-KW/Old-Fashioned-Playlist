@@ -116,7 +116,7 @@ def get_audio(url, directory, save_new=False):
         return filepath, filename
 
     except Exception as e:
-        #print(Fore.RED + str(e))
+        print(Fore.RED + str(e))
         failed_ids.append(url)
 
 # Determine if song is already downloaded
@@ -148,8 +148,8 @@ def start(urls, directory, save_new=False):
     for url in urls:
         index += 1
 
-        video_id = url.strip();
-        is_downloaded = has_song(video_id);
+        video_id = url.strip()
+        is_downloaded = has_song(video_id)
 
         if not is_downloaded:
             get_audio(video_id, directory, save_new)
